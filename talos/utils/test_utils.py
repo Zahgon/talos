@@ -8,13 +8,4 @@ def create_param_space(data, no_of_metrics=2):
 
     '''
 
-    from talos.parameters.ParamSpace import ParamSpace
-
-    params = {}
-
-    for col in data.iloc[:, no_of_metrics:].columns:
-        params[col] = data[col].unique().tolist()
-
-    param_keys = list(params.keys())
-
-    return ParamSpace(params, param_keys)
+    pass

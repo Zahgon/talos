@@ -5,7 +5,4 @@ def rescale_meanzero(x):
     x | array | the dataset to be rescaled
     '''
 
-    import wrangle
-    import pandas as pd
-
-    return wrangle.df_rescale_meanzero(pd.DataFrame(x)).values
+    pass

@@ -8,8 +8,7 @@ class Evaluate:
         e = evaluate(scan_object) and see docstring
         for e() for more information.'''
 
-        self.scan_object = scan_object
-        self.data = scan_object.data
+        pass
 
     def evaluate(self,
                  x,
@@ -51,49 +50,4 @@ class Evaluate:
         TODO: add possibility to input custom metrics.
 
         '''
-
-        import numpy as np
-        import sklearn as sk
-
-        out = []
-        if model_id is None:
-            from ..utils.best_model import best_model
-            model_id = best_model(self.scan_object, metric, asc)
-
-        from ..utils.best_model import activate_model
-        model = activate_model(self.scan_object,
-                               model_id,
-                               saved=saved,
-                               custom_objects=custom_objects)
-
-        from ..utils.validation_split import kfold
-        kx, ky = kfold(x, y, folds, shuffle, multi_input)
-
-        for i in range(folds):
-
-            y_pred = model.predict(kx[i], verbose=0)
-
-            if task == 'binary':
-                y_pred = np.array(y_pred) >= .5
-                scores = sk.metrics.f1_score(y_pred, ky[i], average='binary')
-
-            elif task == 'multi_class':
-                y_pred = y_pred.argmax(axis=-1)
-                scores = sk.metrics.f1_score(y_pred, ky[i], average='macro')
-
-            if task == 'multi_label':
-                y_pred = model.predict(kx[i]).argmax(axis=1)
-                scores = sk.metrics.f1_score(y_pred,
-                                             ky[i].argmax(axis=1),
-                                             average='macro')
-
-            elif task == 'continuous':
-                y_pred = model.predict(kx[i])
-                scores = sk.metrics.mean_absolute_error(y_pred, ky[i])
-
-            out.append(scores)
-
-        if print_out is True:
-            print("mean : %.2f \n std : %.2f" % (np.mean(out), np.std(out)))
-
-        return out
+        pass

@@ -11,34 +11,4 @@ def forrest(self):
     is dropped.
 
     '''
-
-    import wrangle
-    import numpy as np
-
-    # handle conversion to multi_labels
-    from .reduce_utils import cols_to_multilabel
-    data = cols_to_multilabel(self)
-
-    # get the correlations
-    corr_values = wrangle.df_corr_randomforest(data, self.reduction_metric)
-
-    # drop labels where value is NaN
-    corr_values.dropna(inplace=True)
-
-    # handle the turning around of values (see docstring for more info)
-    corr_values -= corr_values[0]
-    corr_values = corr_values.abs()
-
-    # get the strongest correlation
-    corr_values = corr_values.index[-1]
-
-    # get the label, value, and dtype from the column header
-    label, dtype, value = corr_values.split('~')
-
-    # convert things back to their original dtype
-    value = np.array([value]).astype(dtype)[0]
-
-    # this is where we modify the parameter space accordingly
-    self.param_object.remove_is(label, value)
-
-    return self
+    pass

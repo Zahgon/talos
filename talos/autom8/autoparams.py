@@ -40,19 +40,7 @@ class AutoParams:
         resample_params | int or False | The number of values per parameter
         '''
 
-        self._task = task
-        self._replace = replace
-        self._network = network
-
-        if params is None:
-            self.params = {}
-        else:
-            self.params = params
-        if auto:
-            self._automated()
-
-        if resample_params is not False:
-            self.resample_params(resample_params)
+        pass
 
     def _automated(self, shapes='fixed'):
 
@@ -63,56 +51,28 @@ class AutoParams:
             Either 'fixed' or 'sloped'
 
         '''
-
-        if shapes == 'fixed':
-            self.shapes()
-        else:
-            self.shapes_slope()
-        self.layers()
-        self.dropout()
-        self.optimizers()
-        self.activations()
-        self.neurons()
-        self.losses()
-        self.batch_size()
-        self.epochs()
-        self.kernel_initializers()
-        self.lr()
-        if self._network:
-            self.networks()
-        else:
-            self.params['network'] = ['dense']
-        self.last_activations()
+        pass
 
     def shapes(self, shapes='auto'):
 
         '''Uses triangle, funnel, and brick shapes.'''
 
-        if shapes == 'auto':
-            self._append_params('shapes', ['triangle', 'funnel', 'brick'])
-        else:
-            self._append_params('shapes', shapes)
+        pass
 
     def shapes_slope(self, min_slope=0, max_slope=.6, steps=.1):
 
         '''Uses a single decimal float for values below 0.5 to
         reduce the width of the following layer.'''
 
-        self._append_params('shapes', np.arange(min_slope,
-                                                max_slope,
-                                                steps).tolist())
+        pass
 
     def layers(self, min_layers=0, max_layers=6, steps=1):
 
-        self._append_params('hidden_layers',
-                            list(range(min_layers, max_layers, steps)))
+        pass
 
     def dropout(self, min_dropout=0, max_dropout=.85, steps=0.1):
 
-        self._append_params('dropout',
-                            np.round(np.arange(min_dropout,
-                                               max_dropout,
-                                               steps), 2).tolist())
+        pass
 
     def optimizers(self, optimizers='auto'):
 
@@ -121,10 +81,7 @@ class AutoParams:
         more optimizers will be used.
         '''
 
-        if optimizers == 'auto':
-            self._append_params('optimizer', [Adam, Adagrad, SGD])
-        else:
-            self._append_params('optimizer', optimizers)
+        pass
 
     def activations(self, activations='auto'):
 
@@ -133,10 +90,7 @@ class AutoParams:
         more activations will be used.
         '''
 
-        if activations == 'auto':
-            activations = ['relu', 'elu']
-
-        self._append_params('activation', activations)
+        pass
 
     def losses(self, losses='auto'):
 
@@ -145,46 +99,28 @@ class AutoParams:
         more losses will be used.
         '''
 
-        if losses == 'auto':
-            self._append_params('losses', loss[self._task])
-        else:
-            self._append_params('losses', losses)
+        pass
 
     def neurons(self, min_neuron=8, max_neuron=None, steps=None):
 
         '''`max` and `steps` has to be either `None` or
         integer value at the same time.'''
 
-        if max_neuron is None and steps is None:
-            values = [int(np.exp2(i)) for i in range(3, 11)]
-        else:
-            values = list(range(min_neuron, max_neuron, steps))
-
-        self._append_params('first_neuron', values)
+        pass
 
     def batch_size(self, min_size=8, max_size=None, steps=None):
 
         '''`max_size` and `steps` has to be either `None` or
         integer value at the same time.'''
 
-        if max_size is None and steps is None:
-            values = [int(np.exp2(i / 2)) for i in range(3, 15)]
-        else:
-            values = list(range(min_size, max_size, steps))
-
-        self._append_params('batch_size', values)
+        pass
 
     def epochs(self, min_epochs=50, max_epochs=None, steps=None):
 
         '''`max_epochs` and `steps` has to be either `None` or
         integer value at the same time.'''
 
-        if max_epochs is None and steps is None:
-            values = [int(np.exp2(i / 2)) + 50 for i in range(3, 15)]
-        else:
-            values = list(range(min_epochs, max_epochs, steps))
-
-        self._append_params('epochs', values)
+        pass
 
     def kernel_initializers(self, kernel_inits='auto'):
 
@@ -192,14 +128,7 @@ class AutoParams:
         kernel_inits | list | one or more kernel initializers
         '''
 
-        if kernel_inits == 'auto':
-            self._append_params('kernel_initializer',
-                                ['uniform', 'normal', 'he_normal',
-                                 'he_uniform', 'lecun_normal',
-                                 'glorot_uniform', 'glorot_normal',
-                                 'random_uniform', 'random_normal'])
-        else:
-            self._append_params('kernel_initializer', kernel_inits)
+        pass
 
     def lr(self, learning_rates='auto'):
 
@@ -211,17 +140,7 @@ class AutoParams:
         is used in the experiment
         '''
 
-        if learning_rates == 'auto':
-
-            a = np.round(np.arange(0.01, 0.2, 0.02), 3).tolist()
-            b = np.round(np.arange(0, 1, 0.2), 2).tolist()
-            c = list(range(0, 11))
-
-            self._append_params('lr', a + b + c)
-
-        else:
-
-            self._append_params('lr', learning_rates)
+        pass
 
     def networks(self, networks='auto'):
 
@@ -230,14 +149,7 @@ class AutoParams:
         network architectures is used.
         '''
 
-        if networks == 'auto':
-            self._append_params('network', ['dense',
-                                            'simplernn',
-                                            'lstm',
-                                            'bidirectional_lstm',
-                                            'conv1d'])
-        else:
-            self._append_params('network', networks)
+        pass
 
     def last_activations(self, last_activations='auto'):
 
@@ -246,27 +158,15 @@ class AutoParams:
         Otherwise input a list with one or more activations will be used.
         '''
 
-        if last_activations == 'auto':
-            self._append_params('last_activation', last_activation[self._task])
-        else:
-            self._append_params('last_activation', last_activations)
+        pass
 
     def resample_params(self, n):
 
         '''Resamples params dictionary so that `n` values are present for each
         parameter.'''
 
-        from wrangle import dic_resample_values
-
-        self.params = dic_resample_values(self.params, n)
+        pass
 
     def _append_params(self, label, values):
 
-        if self._replace is False:
-            try:
-                self.params[label]
-            except KeyError:
-                self.params[label] = values
-
-        else:
-            self.params[label] = values
+        pass

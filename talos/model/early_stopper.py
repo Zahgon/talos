@@ -20,25 +20,4 @@ def early_stopper(epochs=None,
     `patience` | str | the number of epochs before termination from flag
 
     '''
-    if mode == 'lazy':
-        _es_out = EarlyStopping(monitor=monitor,
-                                min_delta=0,
-                                patience=int(epochs / 3),
-                                verbose=0, mode='auto')
-
-    if mode == 'moderate':
-        _es_out = EarlyStopping(monitor=monitor,
-                                min_delta=0,
-                                patience=int(epochs / 10),
-                                verbose=0, mode='auto')
-    elif mode == 'strict':
-        _es_out = EarlyStopping(monitor=monitor,
-                                min_delta=0,
-                                patience=2,
-                                verbose=0, mode='auto')
-    else:
-        _es_out = EarlyStopping(monitor=monitor,
-                                min_delta=mode[0],
-                                patience=mode[1],
-                                verbose=0, mode='auto')
-    return _es_out
+    pass

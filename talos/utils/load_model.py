@@ -14,10 +14,4 @@ def load_model(saved_model):
 
     '''
 
-    json_file = open(saved_model + ".json", 'r')
-    loaded_model_json = json_file.read()
-    json_file.close()
-    model = model_from_json(loaded_model_json)
-    model.load_weights(saved_model + '.h5')
-
-    return model
+    pass

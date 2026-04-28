@@ -12,43 +12,4 @@ def correlation(self, method):
     which particular value is to be dropped.
 
     '''
-
-    import numpy as np
-
-    # transform the data properly first
-    from .reduce_utils import cols_to_multilabel
-    data = cols_to_multilabel(self)
-
-    # get the correlations
-    corr_values = data.corr(method)[self.reduction_metric]
-
-    # drop the reduction metric row
-    corr_values.drop(self.reduction_metric, inplace=True)
-
-    # drop labels where value is NaN
-    corr_values.dropna(inplace=True)
-
-    # if all nans, then stop
-    if len(corr_values) <= 1:
-        return self
-
-    # sort based on the metric type
-    corr_values.sort_values(ascending=self.minimize_loss, inplace=True)
-
-    # if less than threshold, then stop
-    if abs(corr_values[-1]) < self.reduction_threshold:
-        return self
-
-    # get the strongest correlation
-    corr_values = corr_values.index[-1]
-
-    # get the label, value, and dtype from the column header
-    label, dtype, value = corr_values.split('~')
-
-    # convert things back to their original dtype
-    value = np.array([value]).astype(dtype)[0]
-
-    # this is where we modify the parameter space accordingly
-    self.param_object.remove_is(label, value)
-
-    return self
+    pass

@@ -17,16 +17,7 @@ def func_best_model(scan_object,
     custom_objects | dict | if the model has a custom object, pass it here.
 
     NOTE: for loss 'asc' should be True'''
-
-    import warnings as warnings
-
-    warnings.simplefilter('ignore')
-
-    from ..utils.best_model import best_model, activate_model
-    model_no = best_model(scan_object, metric, asc)
-    out = activate_model(scan_object, model_no, saved, custom_objects)
-
-    return out
+    pass
 
 
 def func_evaluate(scan_object,
@@ -71,56 +62,4 @@ def func_evaluate(scan_object,
     custom_objects | dict | if the model has a custom object, pass it here
 
     '''
-    import warnings as warnings
-    from tqdm import tqdm
-    import numpy as np
-
-    warnings.simplefilter('ignore')
-
-    picks = scan_object.data.sort_values(metric,
-                                         ascending=asc).index.values[:n_models]
-
-    if n_models > len(scan_object.data):
-        data_len = len(scan_object.data)
-    else:
-        data_len = n_models
-
-    out = []
-
-    pbar = tqdm(total=data_len)
-
-    from ..commands.evaluate import Evaluate
-
-    for i in range(len(scan_object.data)):
-
-        if i in list(picks):
-
-            evaluate_object = Evaluate(scan_object)
-            temp = evaluate_object.evaluate(x_val,
-                                            y_val,
-                                            task=task,
-                                            model_id=i,
-                                            metric=metric,
-                                            folds=folds,
-                                            shuffle=shuffle,
-                                            asc=asc,
-                                            saved=saved,
-                                            custom_objects=custom_objects)
-
-            out.append([np.mean(temp), np.std(temp)])
-            pbar.update(1)
-
-        else:
-            out.append([np.nan, np.nan])
-
-    pbar.close()
-
-    if task == 'continuous':
-        heading = 'eval_' + 'mae'
-    else:
-        heading = 'eval_' + 'f1score'
-
-    scan_object.data[heading + '_mean'] = [i[0] for i in out]
-    scan_object.data[heading + '_std'] = [i[1] for i in out]
-
-    print(">> Added evaluation score columns to scan_object.data")
+    pass

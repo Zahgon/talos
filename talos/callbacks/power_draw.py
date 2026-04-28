@@ -17,30 +17,13 @@ class PowerDraw(Callback):
 
     def __init__(self):
 
-        super(PowerDraw, self).__init__()
-
-        import os
-        import time
-
-        self.os = os
-        self.time = time.time
-        self.command = "nvidia-smi -i 0 -q | grep -i 'power draw' | tr -s ' ' | cut -d ' ' -f5"
+        pass
 
     def on_train_begin(self, logs={}):
-        self.log = {}
-        self.log['epoch_begin'] = []
-        self.log['epoch_end'] = []
-        self.log['seconds'] = []
+        pass
 
     def on_epoch_begin(self, batch, logs=None):
-        self.epoch_start_time = self.time()
-        temp = self.os.popen(self.command).read()
-        temp = float(temp.strip())
-        self.log['epoch_begin'].append(temp)
+        pass
 
     def on_epoch_end(self, batch, logs=None):
-        temp = self.os.popen(self.command).read()
-        temp = float(temp.strip())
-        self.log['epoch_end'].append(temp)
-        seconds = round(self.time() - self.epoch_start_time, 3)
-        self.log['seconds'].append(seconds)
+        pass

@@ -162,44 +162,4 @@ class Scan:
                  save_weights=True,
                  save_models=False):
 
-        self.x = x
-        self.y = y
-        self.params = params
-        self.model = model
-        self.experiment_name = experiment_name
-        self.x_val = x_val
-        self.y_val = y_val
-        self.val_split = val_split
-        self.multi_input = multi_input
-
-        # randomness
-        self.random_method = random_method
-        self.seed = seed
-
-        # limiters
-        self.performance_target = performance_target
-        self.fraction_limit = fraction_limit
-        self.round_limit = round_limit
-        self.time_limit = time_limit
-        self.boolean_limit = boolean_limit
-
-        # optimization
-        self.reduction_method = reduction_method
-        self.reduction_interval = reduction_interval
-        self.reduction_window = reduction_window
-        self.reduction_threshold = reduction_threshold
-        self.reduction_metric = reduction_metric
-        self.minimize_loss = minimize_loss
-
-        # display
-        self.disable_progress_bar = disable_progress_bar
-        self.print_params = print_params
-
-        # performance
-        self.clear_session = clear_session
-        self.save_weights = save_weights
-        self.save_models = save_models
-
-        # start runtime
-        from .scan_run import scan_run
-        scan_run(self)
+        pass

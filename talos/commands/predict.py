@@ -8,8 +8,7 @@ class Predict:
         '''Takes in as input a Scan() object and returns and object
         with properties for `predict` and `predict_classes`'''
 
-        self.scan_object = scan_object
-        self.data = scan_object.data
+        pass
 
     def predict(self,
                 x,
@@ -32,17 +31,7 @@ class Predict:
 
         '''
 
-        if model_id is None:
-            from ..utils.best_model import best_model
-            model_id = best_model(self.scan_object, metric, asc)
-
-        from ..utils.best_model import activate_model
-        model = activate_model(self.scan_object,
-                               model_id,
-                               saved,
-                               custom_objects)
-
-        return model.predict(x)
+        pass
 
     def predict_classes(self,
                         x,
@@ -65,27 +54,4 @@ class Predict:
         custom_objects | dict | if the model has a custom object, pass it here
         '''
 
-        import numpy as np
-
-        if model_id is None:
-            from ..utils.best_model import best_model
-            model_id = best_model(self.scan_object, metric, asc)
-
-        from ..utils.best_model import activate_model
-        model = activate_model(self.scan_object,
-                               model_id,
-                               saved,
-                               custom_objects)
-
-        # make (class) predictions with the model
-        preds = model.predict(x)
-
-        if task == 'binary':
-            return np.where(preds >= 0.5, 1, 0)
-
-        elif task == 'multi_label':
-            return np.argmax(preds, 1)
-
-        else:
-            msg = 'Only `binary` and `multi_label` are supported'
-            raise AttributeError(msg)
+        pass

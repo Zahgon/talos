@@ -10,37 +10,32 @@ class Analyze:
         '''Takes as input a filename to the experiment
         log or the Scan object'''
 
-        import pandas as pd
-
-        if isinstance(source, str):
-            self.data = pd.read_csv(source)
-        else:
-            self.data = source.data
+        pass
 
     def high(self, metric):
 
         '''Returns the highest value for a given metric'''
 
-        return max(self.data[metric])
+        pass
 
     def rounds(self):
 
         '''Returns the number of rounds in the experiment'''
 
-        return len(self.data)
+        pass
 
     def rounds2high(self, metric):
 
         '''Returns the number of rounds it took to get to the
         highest value for a given metric.'''
 
-        return self.data[self.data[metric] == self.data[metric].max()].index[0]
+        pass
 
     def low(self, metric):
 
         '''Returns the minimum value for a given metric'''
 
-        return min(self.data[metric])
+        pass
 
     def correlate(self, metric, exclude):
 
@@ -54,13 +49,7 @@ class Analyze:
 
         '''
 
-        columns = [c for c in self.data.columns if c not in exclude + [metric]]
-        out = self.data[columns]
-        out.insert(0, metric, self.data[metric])
-
-        out = out.corr()[metric]
-
-        return out[out != 1]
+        pass
 
     def plot_line(self, metric):
 
@@ -71,11 +60,7 @@ class Analyze:
         metric | str | Column label for the metric to correlate with
 
         '''
-        try:
-            import astetik as ast
-            return ast.line(self.data, metric)
-        except:
-            print('Matplotlib Runtime Error. Plots will not work.')
+        pass
 
     def plot_hist(self, metric, bins=10):
 
@@ -87,11 +72,7 @@ class Analyze:
         bins | int | Number of bins to use in histogram
 
         '''
-        try:
-            import astetik as ast
-            return ast.hist(self.data, metric, bins=bins)
-        except RuntimeError:
-            print('Matplotlib Runtime Error. Plots will not work.')
+        pass
 
     def plot_corr(self, metric, exclude, color_grades=5):
 
@@ -105,12 +86,7 @@ class Analyze:
 
         '''
 
-        try:
-            import astetik as ast
-            cols = self._cols(metric, exclude)
-            return ast.corr(self.data[cols], color_grades=color_grades, mask=False)
-        except RuntimeError:
-            print('Matplotlib Runtime Error. Plots will not work.')
+        pass
 
     def plot_regs(self, x, y):
 
@@ -120,11 +96,7 @@ class Analyze:
         y = data for the y axis
         '''
 
-        try:
-            import astetik as ast
-            return ast.regs(self.data, x, y)
-        except RuntimeError:
-            print('Matplotlib Runtime Error. Plots will not work.')
+        pass
 
     def plot_box(self, x, y, hue=None):
 
@@ -134,37 +106,19 @@ class Analyze:
         y = data for the y axis
         hue = data for the hue separation
         '''
-        try:
-            import astetik as ast
-            return ast.box(self.data, x, y, hue)
-        except RuntimeError:
-            print('Matplotlib Runtime Error. Plots will not work.')
+        pass
 
     def plot_bars(self, x, y, hue, col):
 
         '''A comparison plot with 4 axis'''
-
-        try:
-            import astetik as ast
-            return ast.bargrid(self.data,
-                               x=x,
-                               y=y,
-                               hue=hue,
-                               col=col,
-                               col_wrap=4)
-        except RuntimeError:
-            print('Matplotlib Runtime Error. Plots will not work.')
+        pass
 
     def plot_kde(self, x, y=None):
 
         '''Kernel Destiny Estimation type histogram with
         support for 1 or 2 axis of data'''
 
-        try:
-            import astetik as ast
-            return ast.kde(self.data, x, y)
-        except RuntimeError:
-            print('Matplotlib Runtime Error. Plots will not work.')
+        pass
 
     def table(self, metric, exclude=[], sort_by=None, ascending=False):
 
@@ -184,14 +138,7 @@ class Analyze:
 
         '''
 
-        cols = self._cols(metric, exclude)
-
-        if sort_by is None:
-            sort_by = metric
-
-        out = self.data[cols].sort_values(sort_by, ascending=ascending)
-
-        return out
+        pass
 
     def best_params(self, metric, exclude, n=10, ascending=False):
 
@@ -206,25 +153,10 @@ class Analyze:
 
         '''
 
-        cols = self._cols(metric, exclude)
-        out = self.data[cols].sort_values(metric, ascending=ascending)
-        out = out.drop(metric, axis=1).head(n)
-        out.insert(out.shape[1], 'index_num', range(len(out)))
-
-        return out.values
+        pass
 
     def _cols(self, metric, exclude):
 
         '''Helper to remove other than desired metric from data table'''
 
-        cols = [col for col in self.data.columns if col not in exclude + [metric]]
-
-        if isinstance(metric, list) is False:
-            metric = [metric]
-        for i, metric in enumerate(metric):
-            cols.insert(i, metric)
-
-        # make sure only unique values in col list
-        cols = list(set(cols))
-
-        return cols
+        pass

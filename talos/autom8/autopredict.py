@@ -77,32 +77,4 @@ def AutoPredict(scan_object,
 
     '''
 
-    import numpy as np
-
-    # evaluate and add the evaluation scores
-    scan_object.evaluate_models(x_val,
-                                y_val,
-                                n_models=n_models,
-                                task=task,
-                                metric=metric,
-                                folds=folds,
-                                shuffle=shuffle,
-                                asc=False)
-
-    # get the best model based on evaluated score
-    scan_object.preds_model = scan_object.best_model('eval_f1score_mean')
-
-    # make predictions with the model
-    scan_object.preds_probabilities = scan_object.preds_model.predict(x_pred)
-
-    # make (class) predictiosn with the model
-    preds = scan_object.preds_model.predict(x_pred)   
-    scan_object.preds_classes = np.argmax(preds, axis=1)
-
-    # get the hyperparameter for the model
-    scan_object.preds_parameters = scan_object.data.sort_values('eval_f1score_mean',
-                                                           ascending=False).iloc[0]
-
-    print(">> Added model, probabilities, classes, and parameters to scan_object")
-
-    return scan_object
+    pass
